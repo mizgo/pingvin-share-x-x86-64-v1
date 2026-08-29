@@ -35,7 +35,7 @@ tar -xzf "$ARCHIVE" \
     --strip-components=1
 
 echo "==> Applying x86-64-v1 patch..."
-python3 "$REPO_ROOT/apply-x86-64-v1-patch.py"
+python3 "$REPO_ROOT/apply-x86-64-v1-patch.py" "$SOURCE_DIR/Dockerfile"
 
 echo "==> Building Docker image..."
 cd "$SOURCE_DIR"

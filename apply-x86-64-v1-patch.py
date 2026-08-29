@@ -1,6 +1,18 @@
+import sys
 from pathlib import Path
 
-dockerfile = Path("source/Dockerfile")
+if len(sys.argv) != 2:
+    raise SystemExit(
+        f"Usage: {sys.argv[0]} <path-to-dockerfile>"
+    )
+
+dockerfile = Path(sys.argv[1])
+
+if not dockerfile.is_file():
+    raise SystemExit(
+        f"Dockerfile not found: {dockerfile}"
+    )
+
 text = dockerfile.read_text()
 
 old_backend = """FROM node:24-alpine AS backend-dependencies
