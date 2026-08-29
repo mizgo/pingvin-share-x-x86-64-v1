@@ -14,7 +14,7 @@ BUILD_ROOT="$REPO_ROOT/.build"
 SOURCE_DIR="$BUILD_ROOT/source"
 ARCHIVE="$BUILD_ROOT/pingvin-share-x-${VERSION}.tar.gz"
 
-IMAGE="pingvin-share-x-x86-64-v1:${VERSION}-x86-64-v1"
+IMAGE="pingvin-share-x-x86-64-v1:${VERSION}"
 
 echo "==> Pingvin Share X: ${VERSION}"
 echo "==> Build directory: ${BUILD_ROOT}"
