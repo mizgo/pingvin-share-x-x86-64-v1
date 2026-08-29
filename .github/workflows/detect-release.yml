@@ -1,0 +1,24 @@
+name: Detect latest Pingvin Share X release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get latest stable Pingvin Share X release
+        id: release
+        run: |
+          VERSION=$(curl -fsSL \
+            https://api.github.com/repos/smp46/pingvin-share-x/releases/latest \
+            | jq -r '.tag_name')
+
+          if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
+            echo "Failed to determine latest Pingvin Share X release"
+            exit 1
+          fi
+
+          echo "Latest stable release: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
