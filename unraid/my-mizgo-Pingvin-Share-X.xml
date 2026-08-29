@@ -18,7 +18,7 @@
 
   <WebUI>http://[IP]:[PORT:3000]/</WebUI>
 
-  <TemplateURL>https://raw.githubusercontent.com/mizgo/pingvin-share-x-x86-64-v1/main/unraid/pingvin-share-x-x86-64-v1.xml</TemplateURL>
+  <TemplateURL>https://raw.githubusercontent.com/mizgo/pingvin-share-x-x86-64-v1/main/unraid/my-mizgo-Pingvin-Share-X.xml</TemplateURL>
 
   <Icon>https://raw.githubusercontent.com/mizgo/pingvin-share-x-x86-64-v1/main/unraid/icon.png</Icon>
 
