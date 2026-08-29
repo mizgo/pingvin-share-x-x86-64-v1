@@ -1,6 +1,6 @@
 <Container version="2">
   <Name>Pingvin_Share_X</Name>
-  <Repository>ghcr.io/mizgo/pingvin-share-x-x86-64-v1:x86-64-v1</Repository>
+  <Repository>ghcr.io/mizgo/pingvin-share-x-x86-64-v1:latest</Repository>
   <Registry>https://ghcr.io/mizgo/pingvin-share-x-x86-64-v1</Registry>
   <Network>bridge</Network>
   <MyIP/>
