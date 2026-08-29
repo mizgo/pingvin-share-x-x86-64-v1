@@ -6,6 +6,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ghcr.io/mizgo/pingvin-share-x-x86-64-v1
+  VERSION: v1.22.1 # Temporary hardcoded version for testing
 
 jobs:
   build:
@@ -30,19 +31,19 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Pingvin Share X
-        run: ./build.sh v1.22.1
+        run: ./build.sh $VERSION
 
       - name: Tag image
         run: |
           docker tag \
-            pingvin-share-x-x86-64-v1:v1.22.1 \
-            $IMAGE_NAME:v1.22.1
+            pingvin-share-x-x86-64-v1:$VERSION \
+            $IMAGE_NAME:$VERSION
 
           docker tag \
-            pingvin-share-x-x86-64-v1:v1.22.1 \
+            pingvin-share-x-x86-64-v1:$VERSION \
             $IMAGE_NAME:latest
 
       - name: Push image
         run: |
-          docker push $IMAGE_NAME:v1.22.1
+          docker push $IMAGE_NAME:$VERSION
           docker push $IMAGE_NAME:latest
