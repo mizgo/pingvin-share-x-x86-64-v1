@@ -35,14 +35,14 @@ jobs:
       - name: Tag image
         run: |
           docker tag \
-            pingvin-share-x-x86-64-v1:v1.22.1-x86-64-v1 \
-            $IMAGE_NAME:v1.22.1-x86-64-v1
+            pingvin-share-x-x86-64-v1:v1.22.1 \
+            $IMAGE_NAME:v1.22.1
 
           docker tag \
-            pingvin-share-x-x86-64-v1:v1.22.1-x86-64-v1 \
-            $IMAGE_NAME:x86-64-v1
+            pingvin-share-x-x86-64-v1:v1.22.1 \
+            $IMAGE_NAME:latest
 
       - name: Push image
         run: |
-          docker push $IMAGE_NAME:v1.22.1-x86-64-v1
-          docker push $IMAGE_NAME:x86-64-v1
+          docker push $IMAGE_NAME:v1.22.1
+          docker push $IMAGE_NAME:latest
