@@ -1,0 +1,42 @@
+<Container version="2">
+  <Name>Pingvin_Share_X</Name>
+  <Repository>ghcr.io/mizgo/pingvin-share-x-x86-64-v1:x86-64-v1</Repository>
+  <Registry>https://ghcr.io/mizgo/pingvin-share-x-x86-64-v1</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+
+  <Support>https://github.com/mizgo/pingvin-share-x-x86-64-v1</Support>
+  <Project>https://github.com/mizgo/pingvin-share-x-x86-64-v1</Project>
+  <ReadMe>https://raw.githubusercontent.com/mizgo/pingvin-share-x-x86-64-v1/main/README.md</ReadMe>
+
+  <Overview>Unofficial community build of Pingvin Share X for systems with x86-64-v1 CPU support. The native sharp component is rebuilt from source to support older x86-64 CPUs. This image is maintained by mizgo as an unofficial community build and is not affiliated with or endorsed by the Pingvin Share X maintainers.</Overview>
+
+  <Category>MediaApp:Other MediaServer:Other Productivity: Tools:Utilities Other:</Category>
+
+  <WebUI>http://[IP]:[PORT:3000]/</WebUI>
+
+  <TemplateURL>https://raw.githubusercontent.com/mizgo/pingvin-share-x-x86-64-v1/main/unraid/pingvin-share-x-x86-64-v1.xml</TemplateURL>
+
+  <Icon>https://raw.githubusercontent.com/mizgo/pingvin-share-x-x86-64-v1/main/unraid/icon.png</Icon>
+
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+
+  <Requires>64-bit x86 CPU with x86-64-v1 support</Requires>
+
+  <Config Name="Web UI Port" Target="3000" Default="3000" Mode="tcp" Description="" Type="Port" Display="always-hide" Required="true" Mask="false">3000</Config>
+
+  <Config Name="Behind Reverse Proxy" Target="TRUST_PROXY" Default="false|true" Mode="{3}" Description="Set to true if running behind a reverse proxy" Type="Variable" Display="always-hide" Required="true" Mask="false">false</Config>
+
+  <Config Name="Data Path" Target="/opt/app/backend/data" Default="/mnt/user/appdata/pingvin_share_x/data" Mode="rw" Description="Path to store uploaded files" Type="Path" Display="advanced-hide" Required="true" Mask="false">/mnt/user/appdata/pingvin_share_x/data</Config>
+
+  <Config Name="Images Path" Target="/opt/app/frontend/public/img" Default="/mnt/user/appdata/pingvin_share_x/images" Mode="rw" Description="Path to store image files" Type="Path" Display="advanced-hide" Required="true" Mask="false">/mnt/user/appdata/pingvin_share_x/images</Config>
+
+  <Config Name="TailScale Fallback State Directory" Target="CA_TS_FALLBACK_DIR" Default="/opt/app/backend/data" Mode="{3}" Description="Fallback container directory for tailscale state information - Added By Community Applications" Type="Variable" Display="advanced" Required="{7}" Mask="{8}">/opt/app/backend/data</Config>
+
+  <TailscaleStateDir/>
+</Container>
