@@ -6,7 +6,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ghcr.io/mizgo/pingvin-share-x-x86-64-v1
-  VERSION: v1.22.1 # Temporary hardcoded version for testing
 
 jobs:
   build:
@@ -30,20 +29,34 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get latest stable Pingvin Share X release
+        run: |
+          VERSION=$(curl -fsSL \
+            https://api.github.com/repos/smp46/pingvin-share-x/releases/latest \
+            | jq -r '.tag_name')
+
+          if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
+            echo "Failed to determine latest Pingvin Share X release"
+            exit 1
+          fi
+
+          echo "Latest stable release: $VERSION"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
       - name: Build Pingvin Share X
         run: ./build.sh $VERSION
 
       - name: Tag image
         run: |
           docker tag \
-            pingvin-share-x-x86-64-v1:$VERSION \
-            $IMAGE_NAME:$VERSION
+            pingvin-share-x-x86-64-v1:"$VERSION" \
+            "$IMAGE_NAME":"$VERSION"
 
           docker tag \
-            pingvin-share-x-x86-64-v1:$VERSION \
-            $IMAGE_NAME:latest
+            pingvin-share-x-x86-64-v1:"$VERSION" \
+            "$IMAGE_NAME":latest
 
       - name: Push image
         run: |
-          docker push $IMAGE_NAME:$VERSION
-          docker push $IMAGE_NAME:latest
+          docker push "$IMAGE_NAME":"$VERSION"
+          docker push "$IMAGE_NAME":latest
