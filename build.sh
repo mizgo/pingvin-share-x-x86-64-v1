@@ -9,34 +9,35 @@ if [[ -z "$VERSION" ]]; then
     exit 1
 fi
 
-WORKDIR="$(pwd)"
-BUILD_DIR="$WORKDIR/build"
-SOURCE_DIR="$BUILD_DIR/source"
-ARCHIVE="$BUILD_DIR/pingvin-share-x-${VERSION}.tar.gz"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BUILD_ROOT="$REPO_ROOT/.build"
+SOURCE_DIR="$BUILD_ROOT/source"
+ARCHIVE="$BUILD_ROOT/pingvin-share-x-${VERSION}.tar.gz"
 
 IMAGE="pingvin-share-x-x86-64-v1:${VERSION}-x86-64-v1"
 
-rm -rf "$BUILD_DIR"
+echo "==> Pingvin Share X: ${VERSION}"
+echo "==> Build directory: ${BUILD_ROOT}"
+echo "==> Image: ${IMAGE}"
+echo
+
+rm -rf "$SOURCE_DIR"
 mkdir -p "$SOURCE_DIR"
 
-echo "==> Downloading Pingvin Share X ${VERSION}"
-
-curl -L \
+echo "==> Downloading upstream source..."
+curl -fL \
     "https://github.com/smp46/pingvin-share-x/archive/refs/tags/${VERSION}.tar.gz" \
     -o "$ARCHIVE"
 
-echo "==> Extracting source"
-
+echo "==> Extracting source..."
 tar -xzf "$ARCHIVE" \
     -C "$SOURCE_DIR" \
     --strip-components=1
 
-echo "==> Applying x86-64-v1 patch"
+echo "==> Applying x86-64-v1 patch..."
+python3 "$REPO_ROOT/apply-x86-64-v1-patch.py"
 
-python3 apply-x86-64-v1-patch.py
-
-echo "==> Building ${IMAGE}"
-
+echo "==> Building Docker image..."
 cd "$SOURCE_DIR"
 
 docker build \
@@ -45,5 +46,5 @@ docker build \
     .
 
 echo
-echo "Build completed successfully:"
-echo "  $IMAGE"
+echo "==> Build completed successfully:"
+echo "    $IMAGE"
