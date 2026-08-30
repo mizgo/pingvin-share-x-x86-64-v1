@@ -60,6 +60,91 @@ jobs:
         if: steps.check.outputs.build == 'true'
         run: ./build.sh "$VERSION"
 
+      - name: Test image
+        if: steps.check.outputs.build == 'true'
+        run: |
+          set -euo pipefail
+
+          CONTAINER_NAME="pingvin-share-x-test-${GITHUB_RUN_ID}"
+
+          cleanup() {
+            docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
+          }
+
+          trap cleanup EXIT
+
+          echo "Starting test container..."
+          docker run -d \
+            --name "$CONTAINER_NAME" \
+            "pingvin-share-x-x86-64-v1:$VERSION"
+
+          echo "Waiting for container to become healthy..."
+
+          for i in {1..36}; do
+            STATUS=$(docker inspect \
+              --format '{{.State.Health.Status}}' \
+              "$CONTAINER_NAME" 2>/dev/null || true)
+
+            echo "Health status: $STATUS"
+
+            if [[ "$STATUS" == "healthy" ]]; then
+              break
+            fi
+
+            if [[ "$STATUS" == "unhealthy" ]]; then
+              echo "Container became unhealthy."
+              docker logs "$CONTAINER_NAME"
+              exit 1
+            fi
+
+            if [[ "$i" -eq 36 ]]; then
+              echo "Container did not become healthy in time."
+              docker logs "$CONTAINER_NAME"
+              exit 1
+            fi
+
+            sleep 5
+          done
+
+          echo "Checking Pingvin health endpoint..."
+          docker exec "$CONTAINER_NAME" \
+            curl -fsS http://localhost:3000/api/health
+
+          echo
+          echo "Testing sharp..."
+
+          docker exec \
+            -w /opt/app/backend \
+            "$CONTAINER_NAME" \
+            node -e '
+              const sharp = require("sharp");
+
+              sharp({
+                create: {
+                  width: 1,
+                  height: 1,
+                  channels: 4,
+                  background: {
+                    r: 255,
+                    g: 0,
+                    b: 0,
+                    alpha: 1
+                  }
+                }
+              })
+                .png()
+                .toBuffer()
+                .then(() => {
+                  console.log("sharp test passed");
+                })
+                .catch((error) => {
+                  console.error(error);
+                  process.exit(1);
+                });
+            '
+
+          echo "Image test passed."
+
       - name: Tag image
         if: steps.check.outputs.build == 'true'
         run: |
