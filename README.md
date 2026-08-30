@@ -55,18 +55,6 @@ ghcr.io/mizgo/pingvin-share-x-x86-64-v1:v1.22.1
 
 The `latest` tag points to the most recent upstream **stable release** that successfully passes the build and runtime tests.
 
-## Unraid
-
-An Unraid Docker template is included in this repository:
-
-```text
-unraid/my-mizgo-Pingvin-Share-X.xml
-```
-
-The template uses the `latest` image tag and includes the WebUI button, application-data mappings, and Pingvin Share X icon.
-
-The default Docker network in the template is `bridge`. Users can select their own network, such as `proxynet`, when installing the container.
-
 ## How it works
 
 ```text
@@ -112,9 +100,30 @@ publish latest
 
 Prereleases such as beta and release-candidate versions are not selected by the release detection process.
 
+## Unraid
+
+An Unraid Docker template is included in this repository:
+
+```text
+unraid/my-mizgo-Pingvin-Share-X.xml
+```
+
+### Installation
+
+Copy the template to:
+
+```text
+/boot/config/plugins/dockerMan/templates-user/
+```
+
+After copying the template, open the Unraid web UI, go to the **Docker** section, and click the **Add Container** button.
+The template will appear in your user templates as: `mizgo-Pingvin-Share-X`. Select the template, review the available settings, and click **Apply** to create the container. The template uses the following image: `ghcr.io/mizgo/pingvin-share-x-x86-64-v1:latest`.
+
+The `latest` tag points to the most recent upstream stable release that successfully passes the build and runtime tests. This means the Unraid UI will show you when an update is available and can automatically update the container if automatic updates are enabled.
+
 ## Status
 
-Currently validated with Pingvin Share X `v1.22.1` on an Intel Core 2 Quad Q9550.
+Currently validated with the latest processed **stable release of Pingvin Share X** on an Intel Core 2 Quad Q9550 and the **stable branch of Unraid 7**.
 
 ## License
 
