@@ -5,10 +5,9 @@
 
   <p align="center">
 
-[![Build](https://github.com/mizgo/pingvin-share-x-x86-64-v1/actions/workflows/build.yml/badge.svg)](https://github.com/mizgo/pingvin-share-x-x86-64-v1/actions/workflows/build.yml)
-[![Latest version](https://img.shields.io/docker/v/mizgo/pingvin-share-x-x86-64-v1/latest?label=latest)](https://github.com/mizgo/pingvin-share-x-x86-64-v1/pkgs/container/pingvin-share-x-x86-64-v1)
-[![Docker Pulls](https://img.shields.io/docker/pulls/mizgo/pingvin-share-x-x86-64-v1)](https://github.com/mizgo/pingvin-share-x-x86-64-v1/pkgs/container/pingvin-share-x-x86-64-v1)
-
+[![Build](https://img.shields.io/github/actions/workflow/status/mizgo/pingvin-share-x-x86-64-v1/build.yml?style=for-the-badge&label=build)](https://github.com/mizgo/pingvin-share-x-x86-64-v1/actions/workflows/build.yml)
+[![Latest processed](https://img.shields.io/github/v/tag/mizgo/pingvin-share-x-x86-64-v1?filter=v%2A&sort=semver&label=latest%20processed&style=for-the-badge)](https://github.com/mizgo/pingvin-share-x-x86-64-v1/tags)
+[![Docker Pulls](https://img.shields.io/endpoint?url=https%3A%2F%2Fghcr-badge.elias.eu.org%2Fapi%2Fmizgo%2Fpingvin-share-x-x86-64-v1%2Fpingvin-share-x-x86-64-v1&style=for-the-badge&label=Docker%20Pulls)](https://github.com/mizgo/pingvin-share-x-x86-64-v1/pkgs/container/pingvin-share-x-x86-64-v1)
   </p>
 </div>
 
