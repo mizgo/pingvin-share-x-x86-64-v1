@@ -59,20 +59,20 @@ The `latest` tag points to the most recent upstream **stable release** that succ
 
 ```text
 Pingvin Share X stable release
-            ↓
-      download source
-            ↓
- apply x86-64-v1 patch
-            ↓
-     rebuild sharp
-            ↓
-       Docker build
-            ↓
-       runtime tests
-            ↓
-      publish to GHCR
-            ↓
-       update latest
+    ↓
+download source
+    ↓
+apply x86-64-v1 patch
+    ↓
+rebuild sharp
+    ↓
+Docker build
+    ↓
+runtime tests
+    ↓
+publish to GHCR
+    ↓
+update latest
 ```
 
 The `latest` tag is updated **only after the image passes the build and runtime tests**.
