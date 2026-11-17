@@ -31,19 +31,29 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get latest stable Pingvin Share X release
-        run: |
-          VERSION=$(curl -fsSL \
-            https://api.github.com/repos/smp46/pingvin-share-x/releases/latest \
-            | jq -r '.tag_name')
 
-          if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
+      - name: Get latest stable Pingvin Share X release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+      
+          VERSION=$(curl -fsSL \
+            --retry 3 \
+            --retry-delay 2 \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/smp46/pingvin-share-x/releases/latest \
+            | jq -er '.tag_name')
+      
+          if [[ -z "$VERSION" ]]; then
             echo "Failed to determine latest Pingvin Share X release"
             exit 1
           fi
-
+      
           echo "Latest stable release: $VERSION"
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
 
       - name: Check if version already exists
         id: check
